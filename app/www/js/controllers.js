@@ -50,11 +50,11 @@ var link = 'http://52.10.82.147:9000/review?user_rating='+1+"&asset_id="+$scope.
 $scope.reviewButt2= function () {
 $scope.user_rating=2;
 console.log($scope.comment);
+$window.location.reload();
 var link = 'http://52.10.82.147:9000/review?user_rating='+$scope.user_rating+"&asset_id="+$scope.asset_id+"&comment= ";
  $http.get(link).then(function (response) {
   console.log(response.data);
   console.log("nnnnnn");
-      $window.location.reload();
 
    });      
   };
@@ -109,47 +109,56 @@ var link = 'http://52.10.82.147:9000/review?user_rating='+$scope.user_rating+"&a
   // Smap.Smap().on('click', function(e) {
   //   console.log(e.latlng);
   // });
-    
-  // $("#mapid").css("height", "500px" );
-  var _Polyline, _geoL;
-  // console.log("hello");
-  $scope.poly = [];
-  Window.dataJson.forEach(function(item){
-    if(item.type=='p'){
-      _Polyline=  new L.Polyline(item.c, {
-        color: 'red', 
-        weight: 10,
-        opacity: .8,
-        smoothFactor: 1,
-      }).addTo(Smap.Smap())
-      .on( "click", function(){
-        console.log(this);
-        $scope.review(this.properties.id);
-      });
-      _Polyline.properties = {
-        id: item.id,
-        type: item.type
-      };
-      $scope.poly.push(_Polyline);
-    }else{
-      _geoL= L.circle(item.c, 15, {
-        color: '#ED2324',
-        fillColor: 'ED2324',
-        fillOpacity: 1
-      }).addTo(Smap.Smap())
+  var link = "http://52.10.82.147:9000/asset";
+  $http.get(link).then(function (response) {
+    console.log(response.data[0].location);
+    console.log("get assets");
+    Window.dataJson = response.data;
+    // $("#mapid").css("height", "500px" );
+    var _Polyline, _geoL;
+    // console.log("hello");
+    $scope.poly = [];
+    Window.dataJson.forEach(function(item){
+      if(item.asset_type=='p'){
+        _Polyline=  new L.Polyline(JSON.parse(item.location), {
+          color: 'red', 
+          weight: 10,
+          opacity: .8,
+          smoothFactor: 1,
+        }).addTo(Smap.Smap())
         .on( "click", function(){
-        console.log(this);
-        $scope.review(this.properties.id);
-      });
-      _geoL.properties = {
-        id: item.id,
-        type: item.type
+          console.log(this);
+          $scope.review(this.properties.id);
+        });
+        _Polyline.properties = {
+          id: item.asset_id,
+          type: item.asset_type,
+          name: item.asset_name
+        };
+        $scope.poly.push(_Polyline);
+      }else{
+        _geoL= L.circle(JSON.parse(item.location), 15, {
+          color: '#ED2324',
+          fillColor: 'ED2324',
+          fillOpacity: 1
+        }).addTo(Smap.Smap())
+          .on( "click", function(){
+          console.log(this);
+          $scope.review(this.properties.id);
+        });
+        _geoL.properties = {
+          id: item.asset_id,
+          type: item.asset_type,
+          name: item.asset_name
+        };
+      }
+      Window.review = function(id){
+        $scope.review(id);
       };
-    }
-    Window.review = function(id){
-      $scope.review(id);
-    };
-  });
+
+    });
+  }); 
+
   
   $scope.reset = function(){
     $scope.poly.forEach(function(item){

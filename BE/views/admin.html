@@ -20,6 +20,17 @@
     <script src="/angular-route.min.js"></script>
     <script src="/ang.js"></script>
     <script src="/controller.js"></script> -->
+    <style type="text/css">
+    	.color-red{
+    		background-color: red;
+    	}
+    	.color-blue{
+    		background-color: blue;
+    	}
+    	.color-green{
+    		background-color: green;
+    	}
+    </style>
 </head>
 <body >
 
@@ -67,12 +78,14 @@ Location:<input id="location" name="location" type="text" maxlength="250" class=
 <th>Total Number</th>
 <th>User Ratings</th>
 </tr>
-<tr ng-repeat="x in asset | orderBy:'userRating'">
-<td>{{x.id}}</td>
-<td>{{x.name}}</td>
-<td>{{x.type}}</td>
-<td>{{x.totalNumber}}</td>
-<td>{{x.userRating}}</td>
+<tr ng-repeat="x in asset | orderBy:'userRating'" >
+<td>{{x.asset_id}}</td>
+<td>{{x.asset_name}}</td>
+<td>{{x.total_number}}</td>
+<td>{{x.user_rating}}</td>
+  <span ng-class="{'color-red': s.state === 'Error', 'color-blue': s.state === 'Warning', 'color-green': s.state === 'Ignored'}">{{s.state}}</span>
+
+<td ng-class="{'color-red': (x.userRating === '1' || x.userRating === '2'), 'color-blue': x.userRating === '3', 'color-green': (x.userRating === '4' || x.userRating === '5')}" >{{x.userRating}}</td>
 </tr>
 
 </table>
@@ -92,66 +105,72 @@ var adminApp = angular.module('adminApp', []);
 adminApp.controller('adminCtrl', function adminApp($scope, $http) {
 
 
-	$scope.getasset = function(){
-		var  dataJson = [
-		  {
-		    c: [
-		      {
-		        "lat": "37.37904130969469", 
-		        "lng": "-121.92266464233398"
-		      },
-		      {
-		        "lat": "37.37324372702349", 
-		        "lng": "-121.91824436187743"
-		      }
-		    ],
-		    type: 'l',
-		    id: '1', 
-		    name: "name1",
-		    userRating: "5",
-		    totalNumber: "100"
-		  },
-		  {
-		    c: [
-		      {
-		        "lat": "37.37910951388253", 
-		        "lng": "-121.92270755767822"
-		      },
-		      {
-		        "lat": "37.378700287825076", 
-		        "lng": "-121.92341566085817"
-		      },
-		      {
-		        "lat": "37.37737028771697",
-		        "lng": "-121.92514300346373"
-		      }
-		    ],
-		    type: 'l',
-		    id: '2' ,
-		    name: "name2",
-		    userRating: "2",
-		    totalNumber: "100"
-		  },
-		  {
-		    c: {
-		      "lat": "37.379211820047985", 
-		      "lng": "-121.92257881164551"
-		    },
-		    type: 'i',
-		    id: '3', 
-		    name: "name3",
-		    userRating: "3",
-		    totalNumber: "100"
-		  },
-	];
-	return dataJson;
-	};
-  $scope.asset = $scope.getasset();
-  // $http.get("http://52.10.82.147:9000/asset").then(function (response) {
-  //   console.log("aksdjbfksajb");
-  //   console.log(response.data);
-  //   // url=response.data;
-  // });
+	// $scope.getasset = function(){
+	// 	var  dataJson = [
+	// 	  {
+	// 	    c: [
+	// 	      {
+	// 	        "lat": "37.37904130969469", 
+	// 	        "lng": "-121.92266464233398"
+	// 	      },
+	// 	      {
+	// 	        "lat": "37.37324372702349", 
+	// 	        "lng": "-121.91824436187743"
+	// 	      }
+	// 	    ],
+	// 	    type: 'l',
+	// 	    id: '1', 
+	// 	    name: "name1",
+	// 	    userRating: "5",
+	// 	    totalNumber: "100"
+	// 	  },
+	// 	  {
+	// 	    c: [
+	// 	      {
+	// 	        "lat": "37.37910951388253", 
+	// 	        "lng": "-121.92270755767822"
+	// 	      },
+	// 	      {
+	// 	        "lat": "37.378700287825076", 
+	// 	        "lng": "-121.92341566085817"
+	// 	      },
+	// 	      {
+	// 	        "lat": "37.37737028771697",
+	// 	        "lng": "-121.92514300346373"
+	// 	      }
+	// 	    ],
+	// 	    type: 'l',
+	// 	    id: '2' ,
+	// 	    name: "name2",
+	// 	    userRating: "2",
+	// 	    totalNumber: "100"
+	// 	  },
+	// 	  {
+	// 	    c: {
+	// 	      "lat": "37.379211820047985", 
+	// 	      "lng": "-121.92257881164551"
+	// 	    },
+	// 	    type: 'i',
+	// 	    id: '3', 
+	// 	    name: "name3",
+	// 	    userRating: "3",
+	// 	    totalNumber: "100"
+	// 	  },
+	// ];
+	// return dataJson;
+	// };
+  $scope.asset ;
+  $http.get("http://52.10.82.147:9000/asset").then(function (response) {
+    console.log("aksdjbfksajb");
+    console.log(response.data);
+    $scope.asset = response.data;
+
+  });
+  // $http.get(link).then(function (response) {
+  //   console.log(response.data[0].location);
+  //   console.log("get assets");
+
+// });
 
 
 });
