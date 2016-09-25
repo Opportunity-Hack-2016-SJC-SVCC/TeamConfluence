@@ -1,0 +1,22 @@
+/* Empty. Add your own CSS if you like */
+.holder {
+	display: flex;
+  	flex-direction: column;
+  	height: 100%;
+}
+.holder p{
+	border: none;
+  	flex-grow: 1;
+}
+#map{
+	height: 500px;
+	display: flex;
+  	flex-direction: column;
+}
+.review button{
+    color: black;
+    background: gold;
+    border: none;
+    margin: 2px 5px;
+    border-radius: 5px;
+}
