@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state,$window) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state,$window,$http) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -11,6 +11,9 @@ angular.module('starter.controllers', [])
 
   // Form data for the login modal
   $scope.loginData = {};
+  $scope.comment;
+  $scope.asset_id;
+  $scope.user_rating;
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/review.html', {
@@ -27,19 +30,55 @@ angular.module('starter.controllers', [])
   // Open the login modal
   $scope.review = function(id) {
     $scope.modal.show();
-    console.log(id);
+    $scope.asset_id=id;
+    console.log("lalala"+id);
   };
 
+  $scope.reviewButt1= function () {
+    $scope.user_rating=1;
+var link = 'http://52.10.82.147:9000/review?user_rating='+1+"&asset_id="+$scope.asset_id+"&comment= ";
+ $http.get(link).then(function (response) {
+  console.log(response.data);
+  console.log("nnnnnn");
+      $window.location.reload();
+
+   });
+
+  };
+
+
+$scope.reviewButt2= function () {
+$scope.user_rating=2;
+console.log($scope.comment);
+var link = 'http://52.10.82.147:9000/review?user_rating='+$scope.user_rating+"&asset_id="+$scope.asset_id+"&comment= ";
+ $http.get(link).then(function (response) {
+  console.log(response.data);
+  console.log("nnnnnn");
+      $window.location.reload();
+
+   });      
+  };
+  $scope.reviewButt3= function () {
+$scope.user_rating=3;
+      
+var link = 'http://52.10.82.147:9000/review?user_rating='+$scope.user_rating+"&asset_id="+$scope.asset_id+"&comment= ";
+ $http.get(link).then(function (response) {
+  console.log(response.data);
+  console.log("nnnnnn");
+      $window.location.reload();
+  
+   });  };
   // Perform the login action when the user submits the login form
   $scope.doReview = function() {
-    console.log('Doing login', $scope.loginData);
+    console.log('teri maa ki', $scope.loginData);
 
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
     // $timeout(function() {
-      $scope.closeReview();
+      //$scope.closeReview();
       // $state.reload();
-      $window.location.reload();
+
+      // $window.location.reload();
       // $state.go('app.confirm');
     // }, 1000);
   };
@@ -141,7 +180,7 @@ angular.module('starter.controllers', [])
   });
 
     console.log("it works");
-    // $window.open(url,"Please Sign in with Google ID","width:500px, height: 700px");
+    $window.open(url,"Please Sign in with Google ID","width:500px, height: 700px");
 
 
     // Simulate a login delay. Remove this and replace with your login
