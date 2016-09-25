@@ -24,8 +24,8 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(session({secret: "qweqsdfdsfsd2132f", resave: false, saveUninitialized: true,cookieName: 'session', secret: 'cmpe273_test_string', duration: 30 * 60 * 1000,activeDuration: 5 * 60 * 1000}));
 app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.static(path.join(__dirname, '/views')));
+// app.use(express.static(__dirname + '/views'));
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
@@ -112,3 +112,8 @@ http.createServer(app).listen(app.get('port'), function(){
   		res.render('index');
   	}
 });
+
+  app.get('/admin',function(req,res){
+    console.log("agaya");
+    res.sendfile('./views/admin.html');  
+  });
