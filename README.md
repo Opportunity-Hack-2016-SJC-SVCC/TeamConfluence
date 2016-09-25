@@ -10,6 +10,7 @@ The city of San Jose's Department of Transportation currently has no system for 
 Engineers of the city streets are trying to understand the behavior of drivers when they perform dangerous driving on roads that were built that follow street standards.
 
 There is a Data Gap that Department of Transportation lacks to analyze causes of top dangerous driving activities that cause fatalities such as:
+
 1. Drunk Driving
 2. Speeding
 3. Running Red Lights
@@ -25,6 +26,7 @@ This allows the Department of Transportation to view the overall data of streets
 
 ## How we built it
 User Workflow
+
 1. User logs in application using Google Authentication
 2. User is presenting with a map of their current location and nearby rated streets & intersections
 3. User Interaction
@@ -35,6 +37,7 @@ User Workflow
 8. Submit Report which updates the rating of street/intersection
 
 Admin Workflow
+
 1. Administrator is able to add new assets by creating Geofencing/Polylines on Streets & Intersections
 2. Able to see overall map view of all assets
 3. Able to view rating/status of assets
@@ -43,6 +46,7 @@ Admin Workflow
 6. Green = rating 4-5; Drivers Ignored Traffic Signs, Miscellaneous reports
 
 Application Workflow
+
 1. Google Authentication allows user to view NodeJS application
 2. NodeJS calls to javascript RESTAPI
 3. RESTAPI calls to mySQL database
@@ -50,11 +54,13 @@ Application Workflow
 5. When asset is updated by the user, it calls to RESTAPI to perform an update/insert query in mySQL database
 
 Front-end Setup
+
 1. OpenStreetMap MapData API
 2. LeafletJS MapData Rendering API
 3. Iconic Responsive Mobile SDK
 
 Back-end Setup
+
 1. NodeJS (Deployed on AWS)
 2. mySQL Database (Deployed on AWS), 2 tables
 - asset | asset_id, asset_name, asset_type, total_number, user_rating, location
