@@ -60,6 +60,7 @@ angular.module('starter.controllers', [])
 //  map view controller 
 .controller('BrowseCtrl', function($scope, $http, $state, $window) {
   // $state.go('app.search');
+  // console.log("ksdj"+$window.innerHeight);
    $('#mapid').css('height', $window.innerHeight);
     $(window).resize(function(){
       $('#mapid').css('height', $window.innerHeight );
@@ -70,7 +71,7 @@ angular.module('starter.controllers', [])
   //   console.log(e.latlng);
   // });
     
-  $("#mapid").css("height", "500px" );
+  // $("#mapid").css("height", "500px" );
   var _Polyline, _geoL;
   // console.log("hello");
   $scope.poly = [];
@@ -132,11 +133,12 @@ angular.module('starter.controllers', [])
   $scope.doLogin = function() {
     console.log("hello");
 
-  //   var url;
-  // $http.get("/url").then(function (response) {
-  //   console.log(response.data);
-  //   url=response.data;
-  // });
+    var url;
+  $http.get("http://52.10.82.147:9000/url").then(function (response) {
+    console.log("aksdjbfksajb");
+    console.log(response.data);
+    url=response.data;
+  });
 
     console.log("it works");
     // $window.open(url,"Please Sign in with Google ID","width:500px, height: 700px");
