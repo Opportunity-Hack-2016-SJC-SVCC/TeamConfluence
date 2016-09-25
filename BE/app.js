@@ -22,7 +22,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(session({secret: "qweqsdfdsfsd2132f", resave: false, saveUninitialized: true,cookieName: 'session', secret: 'cmpe273_test_string', duration: 30 * 60 * 1000,activeDuration: 5 * 60 * 1000}));
+app.use(session({secret: "qweqsdfdsfsd2132f", resave: false, saveUninitialized: true,cookieName: 'session', , duration: 30 * 60 * 1000,activeDuration: 5 * 60 * 1000}));
 app.use(app.router);
 app.use(express.static(path.join(__dirname, '/views')));
 // app.use(express.static(__dirname + '/views'));
@@ -34,6 +34,8 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/asset', user.getasset);
 app.get('/user',user.getuser);
+app.get('/review', user.insertUser);
+app.post('/insertAsset',user.insertAsset);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
@@ -56,7 +58,8 @@ http.createServer(app).listen(app.get('port'), function(){
   });
 
   app.get('/url',function (req,res) {
-  	res.send(url);
+  	res.header("Access-Control-Allow-Origin","*");
+    res.send(url);
   });
 
   app.get('/oauthcallback',function (req,res) {
