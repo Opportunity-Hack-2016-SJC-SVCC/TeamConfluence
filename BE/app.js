@@ -37,6 +37,7 @@ app.get('/user',user.getuser);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
+});
 
   var OAuth2 = google.auth.OAuth2;
 

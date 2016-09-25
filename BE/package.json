@@ -10,6 +10,8 @@
     "jade": "*",
     "ejs": "*",
     "express": "3.2.6",
+    "express-session": "^1.14.1",
+    "googleapis": "^13.0.0",
     "mysql": "^2.10.2"
   }
 }
