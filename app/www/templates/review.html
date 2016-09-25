@@ -1,0 +1,25 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Ratting</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeReview()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doReview()">
+      <div class="list">
+          <button>Drunk Driving</button>
+          <button>Speeding</button>
+          <button>Red Light Jump</button>
+          <button>Trafic voilation</button>
+        <label class="item item-input">
+          <!-- <span class="input-label">Comments</span> -->
+          <input type="textbox" ng-model="review.comment">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Review</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>
